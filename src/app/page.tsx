@@ -112,6 +112,9 @@ export default function Home() {
 
   return (
     <div className="mx-auto w-full max-w-2xl flex-1 px-4 pb-36 pt-4">
+      <p role="note" className="-mx-4 -mt-4 mb-3 bg-zinc-900 px-4 py-2 text-center text-sm text-white dark:bg-zinc-100 dark:text-zinc-900">
+        <b>Test application.</b> Do not add any personal details. It is not HIPAA or GDPR compliant.
+      </p>
       <header className="mb-3 flex items-center justify-between">
         <div>
           <h1 className="text-xl font-bold tracking-tight">PREVENT</h1>
