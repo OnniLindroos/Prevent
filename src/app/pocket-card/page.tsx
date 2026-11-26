@@ -12,7 +12,7 @@ export default function PocketCard() {
 
       <ol className="mb-4 space-y-1">
         {DEESCALATION_MODEL.map((s) => (
-          <li key={s.id}><b>{s.title}:</b> {s.cue}</li>
+          <li key={s.id}><b>{s.letter} – {s.title}:</b> {s.cue}</li>
         ))}
       </ol>
 

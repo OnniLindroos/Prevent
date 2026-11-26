@@ -1,4 +1,7 @@
 import { HANDOFF_ROUTE, RED_FLAGS } from "./config";
+import { CEASE, CORE_MESSAGE } from "./model";
+
+const cease = CEASE.map((s) => `- ${s.letter} – ${s.title}: ${s.cue}`).join("\n");
 
 const routes = HANDOFF_ROUTE.map(
   (c, i) => `${i + 1}. ${c.label}${c.phone ? ` (${c.phone})` : ""} – ${c.when}`,
@@ -16,6 +19,11 @@ ${RED_FLAGS.map((f) => `  - ${f}`).join("\n")}
 - Never provide information about methods or means of self-harm.
 - Do not ask for or repeat the student's name or other identifying details.
 - If you look something up, prefer Finnish national guidance (THL, Käypä hoito, MIELI) and cite briefly.
+
+Base your de-escalation advice on the CEASE model the counsellor is following, and name the step you are drawing on (e.g. "C – calm down"):
+${cease}
+Core message: ${CORE_MESSAGE}
+Safety always comes before CEASE: red flags and immediate danger override any step.
 
 Handoff route (Plan B order – if no answer, next):
 ${routes}

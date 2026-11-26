@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { DEESCALATION_MODEL } from "@/lib/model";
+import { CORE_MESSAGE, DEESCALATION_MODEL } from "@/lib/model";
 import { RED_FLAGS } from "@/lib/config";
 
 type Props = {
@@ -28,25 +28,37 @@ export function Guide({ redFlags, setRedFlags, checklist, setChecklist }: Props)
         </div>
       )}
 
-      <div className="flex gap-1">
+      <div className="flex gap-1.5">
         {DEESCALATION_MODEL.map((s, idx) => (
           <button
             key={s.id}
             onClick={() => { setI(idx); setMore(false); }}
             aria-label={s.title}
-            className={`h-2 flex-1 rounded-full ${idx <= i ? "bg-teal-600" : "bg-zinc-200 dark:bg-zinc-800"}`}
-          />
+            style={{ backgroundColor: s.color, opacity: idx === i ? 1 : 0.35 }}
+            className={`flex h-11 flex-1 items-center justify-center rounded-lg text-lg font-bold text-white ${idx === i ? "ring-2 ring-offset-2 ring-zinc-400 dark:ring-offset-zinc-950" : ""}`}
+          >
+            {s.letter}
+          </button>
         ))}
       </div>
 
-      <section className="rounded-2xl border border-zinc-200 p-5 dark:border-zinc-800">
-        <div className="text-sm font-semibold text-teal-700 dark:text-teal-400">{step.title}</div>
+      <section className="rounded-2xl border-2 p-5" style={{ borderColor: step.color }}>
+        <div className="flex items-baseline justify-between gap-2">
+          <div className="text-lg font-bold" style={{ color: step.color }}>{step.title}</div>
+          <div className="text-[11px] font-semibold tracking-wide text-zinc-500">{step.tag}</div>
+        </div>
         <p className="mt-1 text-2xl font-semibold leading-snug">{step.cue}</p>
 
         {step.say && (
           <div className="mt-4 space-y-2">
             {step.say.map((s) => (
-              <p key={s} className="rounded-lg bg-teal-50 px-3 py-2 text-lg dark:bg-teal-950">“{s}”</p>
+              <p
+                key={s}
+                className="rounded-lg px-3 py-2 text-lg italic"
+                style={{ backgroundColor: `${step.color}1a` }}
+              >
+                “{s}”
+              </p>
             ))}
           </div>
         )}
@@ -83,15 +95,23 @@ export function Guide({ redFlags, setRedFlags, checklist, setChecklist }: Props)
           <button
             disabled={i === DEESCALATION_MODEL.length - 1}
             onClick={() => { setI(i + 1); setMore(false); }}
-            className="flex-1 rounded-lg bg-teal-700 px-4 py-2 font-semibold text-white disabled:opacity-30"
+            style={{ backgroundColor: DEESCALATION_MODEL[Math.min(i + 1, DEESCALATION_MODEL.length - 1)].color }}
+            className="flex-1 rounded-lg px-4 py-2 font-semibold text-white disabled:opacity-30"
           >
-            Next step
+            {i < DEESCALATION_MODEL.length - 1 ? `Next: ${DEESCALATION_MODEL[i + 1].title}` : "Last step – hand off"}
           </button>
         </div>
       </section>
 
+      <p className="rounded-xl bg-[#13294b] px-4 py-3 text-sm text-white">
+        <b className="text-amber-300">CORE MESSAGE </b>{CORE_MESSAGE}
+      </p>
+
       <section className="rounded-2xl border border-red-200 p-4 dark:border-red-900">
-        <p className="mb-2 text-sm font-bold text-red-700 dark:text-red-400">Red flags – any one = hand over</p>
+        <p className="mb-1 text-sm font-bold text-red-700 dark:text-red-400">Red flags – any one = hand over</p>
+        <p className="mb-2 text-xs text-zinc-500">
+          If worried, ask directly: “Are you thinking about killing yourself?” Asking does not plant the idea.
+        </p>
         <div className="space-y-1">
           {RED_FLAGS.map((f) => (
             <label key={f} className="flex items-start gap-2 text-sm">

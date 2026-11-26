@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+
+const noopSubscribe = () => () => {};
 import { type Line, nowTime } from "@/lib/stream";
 
 // Minimal Web Speech API typings (Chrome / Edge / Safari; not Firefox).
@@ -33,14 +35,17 @@ export function Recorder({ transcript, setTranscript }: Props) {
   const [interim, setInterim] = useState("");
   const [manual, setManual] = useState("");
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
-  const [supported, setSupported] = useState(true);
 
   const recRef = useRef<Recognition | null>(null);
   const mediaRef = useRef<MediaRecorder | null>(null);
   const activeRef = useRef(false);
   const speakerRef = useRef(speaker);
   useEffect(() => { speakerRef.current = speaker; }, [speaker]);
-  useEffect(() => { setSupported(!!getRecognition()); }, []);
+  const supported = useSyncExternalStore(
+    noopSubscribe,
+    () => "SpeechRecognition" in window || "webkitSpeechRecognition" in window,
+    () => true,
+  );
 
   async function start() {
     activeRef.current = true;
