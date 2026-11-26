@@ -1,5 +1,7 @@
 # PREVENT
 
+Test app for a school project.
+
 In-the-moment guide for school counsellors who are with a student in acute distress on school grounds. It helps them de-escalate, recognise red flags and hand off safely to professional care. Course prototype for *Suicidology Basics I – Crisis Skills for a Safer World* (Version 2, built on the Week 2 test findings).
 
 **Not a risk assessment and not a medical device.** The app never shows a risk level. Any red flag means handing over to a professional. In immediate danger, call 112 first.
