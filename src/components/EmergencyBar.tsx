@@ -42,12 +42,12 @@ export function EmergencyBar() {
         </div>
       )}
       <div className="mx-auto flex max-w-2xl gap-2 px-4 py-3">
-        <a href="tel:112" className="flex-1 rounded-xl bg-red-600 py-3 text-center text-lg font-bold text-white shadow active:bg-red-700">
+        <a href="tel:112" className="flex-1 rounded-2xl bg-red-600 py-5 text-center text-lg font-bold text-white shadow active:bg-red-700">
           Call 112
         </a>
         <button
           onClick={() => setOpen((o) => !o)}
-          className="flex-1 rounded-xl border-2 border-red-600 py-3 text-lg font-bold text-red-700 dark:text-red-400"
+          className="flex-1 rounded-2xl border-2 border-red-600 py-5 text-lg font-bold text-red-700 dark:text-red-400"
         >
           {open ? "Close" : "Hand off"}
         </button>
