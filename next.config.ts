@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: "standalone", // used by the Docker image; ignored by Vercel
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {

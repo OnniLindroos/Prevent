@@ -1,0 +1,23 @@
+# PREVENT local sandbox (separate from Monni: own compose project + port).
+#   docker compose up -d --build   -> http://localhost:3100
+#
+# Microphone recording on a phone needs HTTPS:
+#   docker compose --profile phone up -d
+#   docker compose logs tunnel     -> look for https://<random>.trycloudflare.com
+name: prevent
+
+services:
+  app:
+    build: .
+    env_file:
+      - path: .env
+        required: false
+    ports:
+      - "127.0.0.1:3100:3000" # this computer only
+
+  tunnel:
+    image: cloudflare/cloudflared:2025.11.1
+    profiles: ["phone"]
+    depends_on:
+      - app
+    command: tunnel --no-autoupdate --url http://app:3000
